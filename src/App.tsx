@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
 import styles from "./App.module.css";
-import { horizontallyAligned } from "./utils";
+import { isAligned } from "./utils";
 
 function App() {
   const [squares, setSquares] = useState<string[]>(
     Array.from({ length: 9 }, () => "")
   );
-  const [player, setPlayer] = useState("1");
+  const [player, setPlayer] = useState<null | string>(null);
 
   useEffect(() => {
-    if (horizontallyAligned(squares)) {
+    if (isAligned(squares)) {
       alert(`Player's ${player} wins`);
     }
+    setPlayer(() => (player === "1" ? "2" : "1"));
   }, [squares]);
 
   const onCheckSquare = (idx: number) => {
@@ -19,7 +20,6 @@ function App() {
       const newSquares = [...squares];
       newSquares[idx] = player === "1" ? "1" : "2";
       setSquares(newSquares);
-      setPlayer(() => (player === "1" ? "2" : "1"));
     }
   };
 
@@ -34,7 +34,7 @@ function App() {
               className={styles.square}
               onClick={() => onCheckSquare(index)}
             >
-              {player && "X"}
+              {player && player}
             </div>
           ))}
         </div>

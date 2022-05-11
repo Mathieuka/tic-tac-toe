@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import { horizontallyAligned } from "./utils";
+import { horizontallyAligned, diagonallyAligned } from "./utils";
 import App from "./App";
 
 test("renders learn react link", () => {
@@ -27,5 +27,18 @@ describe("Check if there are 3 crosses aligned", () => {
 
     const squares3 = ["", "", "", "", "", "", "1", "1", "1"];
     expect(horizontallyAligned(squares3)).toEqual(true);
+  });
+
+  test("Not aligned diagonally", () => {
+    const squares1 = ["1", "", "", "", "1", "", "", "", "2"];
+    expect(diagonallyAligned(squares1)).toEqual(false);
+  });
+
+  test("Diagonally", () => {
+    const squares1 = ["1", "", "", "", "1", "", "", "", "1"];
+    expect(diagonallyAligned(squares1)).toEqual(true);
+
+    const squares2 = ["", "", "1", "", "1", "", "1", "", ""];
+    expect(diagonallyAligned(squares2)).toEqual(true);
   });
 });
