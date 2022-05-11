@@ -1,21 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./App.module.css";
 // import logo from "./logo.svg";
 // {<img src={logo} className={styles.appLogo} alt="logo" />}
 
 function App() {
+  const [squares, setSquares] = useState<string[]>(Array.from({ length: 9 }));
+
+  const onCheckSquare = (idx: number) => {
+    const newSquares = [...squares];
+    if (!newSquares[idx]) {
+      newSquares[idx] = "X";
+      setSquares(newSquares);
+    }
+  };
+
   return (
     <div className={styles.app}>
       <div className={styles.container}>
-        <div className={styles.square}>0</div>
-        <div className={styles.square}>1</div>
-        <div className={styles.square}>2</div>
-        <div className={styles.square}>3</div>
-        <div className={styles.square}>4</div>
-        <div className={styles.square}>5</div>
-        <div className={styles.square}>6</div>
-        <div className={styles.square}>7</div>
-        <div className={styles.square}>8</div>
+        {squares.map((value: string, index) => (
+          <div
+            key={Math.random() * index}
+            className={styles.square}
+            onClick={() => onCheckSquare(index)}
+          >
+            {value}
+          </div>
+        ))}
       </div>
     </div>
   );
