@@ -1,23 +1,27 @@
-.App {
-  text-align: center;
+.app {
+  display: flex;
+  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
 }
 
-.AppLogo {
-  height: 10vmin;
-  pointer-events: none;
+.container {
+  width: 30rem;
+  height: 30rem;
+  border-width: 1px;
+  border-style: solid;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .AppLogo {
-    animation: App-logo-spin infinite 20s linear;
+@media (max-width: 600px) {
+  .container {
+    width: 25rem;
+    height: 25rem;
   }
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+@media (max-width: 400px) {
+  .container {
+    width: 20rem;
+    height: 20rem;
   }
 }
