@@ -1,6 +1,10 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import { horizontallyAligned, diagonallyAligned } from "./utils";
+import {
+  horizontallyAligned,
+  diagonallyAligned,
+  verticallyAligned,
+} from "./utils";
 import App from "./App";
 
 test("renders learn react link", () => {
@@ -40,5 +44,25 @@ describe("Check if there are 3 crosses aligned", () => {
 
     const squares2 = ["", "", "1", "", "1", "", "1", "", ""];
     expect(diagonallyAligned(squares2)).toEqual(true);
+  });
+
+  test("Not aligned vertically", () => {
+    const squares1 = ["1", "", "", "1", "", "", "2", "", ""];
+    expect(verticallyAligned(squares1)).toEqual(false);
+  });
+
+  test("Vertically columns 1", () => {
+    const squares1 = ["1", "", "", "1", "", "", "1", "", ""];
+    expect(verticallyAligned(squares1)).toEqual(true);
+  });
+
+  test("Vertically columns 2", () => {
+    const squares1 = ["", "1", "", "", "1", "", "", "1", ""];
+    expect(verticallyAligned(squares1)).toEqual(true);
+  });
+
+  test("Vertically columns 3", () => {
+    const squares1 = ["", "", "1", "", "", "1", "", "", "1"];
+    expect(verticallyAligned(squares1)).toEqual(true);
   });
 });

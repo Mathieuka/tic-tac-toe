@@ -3,10 +3,10 @@ import styles from "./App.module.css";
 import { isAligned } from "./utils";
 
 function App() {
+  const [player, setPlayer] = useState<null | string>(null);
   const [squares, setSquares] = useState<string[]>(
     Array.from({ length: 9 }, () => "")
   );
-  const [player, setPlayer] = useState<null | string>(null);
 
   useEffect(() => {
     if (isAligned(squares)) {
