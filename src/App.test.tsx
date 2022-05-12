@@ -19,10 +19,10 @@ describe("Check if there are 3 crosses aligned", () => {
     expect(horizontallyAligned(squares1)).toEqual(false);
 
     const squares2 = ["", "1", "1", "1", "", "", "", "", ""];
-    expect(horizontallyAligned(squares1)).toEqual(false);
+    expect(horizontallyAligned(squares2)).toEqual(false);
   });
 
-  test("Horizontally", () => {
+  test("Aligned horizontally", () => {
     const squares1 = ["1", "1", "1", "", "", "", "", "", ""];
     expect(horizontallyAligned(squares1)).toEqual(true);
 
@@ -38,7 +38,7 @@ describe("Check if there are 3 crosses aligned", () => {
     expect(diagonallyAligned(squares1)).toEqual(false);
   });
 
-  test("Diagonally", () => {
+  test("Aligned diagonally", () => {
     const squares1 = ["1", "", "", "", "1", "", "", "", "1"];
     expect(diagonallyAligned(squares1)).toEqual(true);
 
@@ -51,18 +51,12 @@ describe("Check if there are 3 crosses aligned", () => {
     expect(verticallyAligned(squares1)).toEqual(false);
   });
 
-  test("Vertically columns 1", () => {
+  test("Vertically Aligned", () => {
     const squares1 = ["1", "", "", "1", "", "", "1", "", ""];
     expect(verticallyAligned(squares1)).toEqual(true);
-  });
-
-  test("Vertically columns 2", () => {
-    const squares1 = ["", "1", "", "", "1", "", "", "1", ""];
-    expect(verticallyAligned(squares1)).toEqual(true);
-  });
-
-  test("Vertically columns 3", () => {
-    const squares1 = ["", "", "1", "", "", "1", "", "", "1"];
-    expect(verticallyAligned(squares1)).toEqual(true);
+    const squares2 = ["", "1", "", "", "1", "", "", "1", ""];
+    expect(verticallyAligned(squares2)).toEqual(true);
+    const squares3 = ["", "", "1", "", "", "1", "", "", "1"];
+    expect(verticallyAligned(squares3)).toEqual(true);
   });
 });

@@ -1,10 +1,19 @@
+const allValueIsEqual = (arr: string[], values: string[]) => {
+  let isEqual = false;
+  values.forEach((val) => {
+    if (arr.every((value) => value === val)) {
+      isEqual = true;
+    }
+  });
+
+  return isEqual;
+};
+
 export const horizontallyAligned = (squares: string[]) => {
   for (let i = 0; i < squares.length; i++) {
     if (i % 3 === 0) {
-      if (
-        [...squares].slice(i, i + 3).every((value) => value === "1") ||
-        [...squares].slice(i, i + 3).every((value) => value === "2")
-      ) {
+      const row = [...squares].slice(i, i + 3);
+      if (allValueIsEqual(row, ["1", "2"])) {
         return true;
       }
     }
@@ -24,13 +33,10 @@ export const diagonallyAligned = (squares: string[]) => {
     }
   }
 
-  const isAligned =
-    diagonals[0].every((value) => value === "1") ||
-    diagonals[0].every((value) => value === "2") ||
-    diagonals[1].every((value) => value === "1") ||
-    diagonals[1].every((value) => value === "2");
-
-  return isAligned;
+  return (
+    allValueIsEqual(diagonals[0], ["1", "2"]) ||
+    allValueIsEqual(diagonals[1], ["1", "2"])
+  );
 };
 
 export const verticallyAligned = (squares: string[]) => {
@@ -38,26 +44,15 @@ export const verticallyAligned = (squares: string[]) => {
   for (let i = 0; i < squares.length; i++) {
     if (i % 3 === 0) {
       columns[0].push(squares[i]);
-    }
-
-    if (i % 3 === 0) {
       columns[1].push(squares[i + 1]);
-    }
-
-    if (i % 3 === 0) {
       columns[2].push(squares[i + 2]);
     }
   }
-
-  const isAligned =
-    columns[0].every((value) => value === "1") ||
-    columns[0].every((value) => value === "2") ||
-    columns[1].every((value) => value === "1") ||
-    columns[1].every((value) => value === "2") ||
-    columns[2].every((value) => value === "1") ||
-    columns[2].every((value) => value === "2");
-
-  return isAligned;
+  return (
+    allValueIsEqual(columns[0], ["1", "2"]) ||
+    allValueIsEqual(columns[1], ["1", "2"]) ||
+    allValueIsEqual(columns[2], ["1", "2"])
+  );
 };
 
 export const isAligned = (squares: string[]) =>
