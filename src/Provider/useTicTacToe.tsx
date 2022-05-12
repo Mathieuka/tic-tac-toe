@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { TictactoeContext } from "./TictactoeProvider";
+import { TicTacToeContext } from "./TictactoeProvider";
 
-const useTicTacToe = () => useContext(TictactoeContext);
+const useTicTacToe = () => useContext(TicTacToeContext);
 
 export default useTicTacToe;

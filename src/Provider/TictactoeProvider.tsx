@@ -4,35 +4,34 @@ import { isAligned } from "../utils";
 interface TictactoeCtx {
   squares: string[];
   onCheckSquare: (idx: number) => void;
-  player: string | null;
+  player: string;
+  winner: boolean;
 }
 
-export const TictactoeContext = createContext<TictactoeCtx>({
+export const TicTacToeContext = createContext<TictactoeCtx>({
   squares: [],
   onCheckSquare: (idx: number) => undefined,
   player: "",
+  winner: false,
 });
 
 const useTicTacToeContext = () => {
-  const [player, setPlayer] = useState<null | string>("1");
-  const [squares, setSquares] = useState<string[]>(
-    Array.from({ length: 9 }, () => "")
-  );
+  const [player, setPlayer] = useState("1");
+  const [squares, setSquares] = useState(Array.from({ length: 9 }, () => ""));
 
   const onCheckSquare = (idx: number) => {
     if (!squares[idx]) {
       const newSquares = [...squares];
       newSquares[idx] = player === "1" ? "1" : "2";
       setSquares(newSquares);
-      setPlayer(() => (player === "1" ? "2" : "1"));
-      if (isAligned(newSquares)) {
-        alert(`Player's ${player} wins`);
+      if (!isAligned(newSquares)) {
+        setPlayer(() => (player === "1" ? "2" : "1"));
       }
     }
   };
 
   const contextValue = useMemo(
-    () => ({ squares, onCheckSquare, player }),
+    () => ({ squares, onCheckSquare, player, winner: isAligned(squares) }),
     [squares]
   );
 
@@ -43,9 +42,9 @@ const TicTacToeProvider = ({ children }: { children: JSX.Element }) => {
   const context = useTicTacToeContext();
 
   return (
-    <TictactoeContext.Provider value={context}>
+    <TicTacToeContext.Provider value={context}>
       {children}
-    </TictactoeContext.Provider>
+    </TicTacToeContext.Provider>
   );
 };
 

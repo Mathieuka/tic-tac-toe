@@ -1,16 +1,56 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import {
   horizontallyAligned,
   diagonallyAligned,
   verticallyAligned,
 } from "./utils";
+import TicTacToeProvider from "./Provider/TictactoeProvider";
 import App from "./App";
 
-test("renders learn react link", () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+describe("TicTacToe", () => {
+  test("Player 1 win horizontally", () => {
+    render(
+      <TicTacToeProvider>
+        <App />
+      </TicTacToeProvider>
+    );
+    userEvent.click(screen.getByTestId("square-0"));
+    userEvent.click(screen.getByTestId("square-6"));
+    userEvent.click(screen.getByTestId("square-1"));
+    userEvent.click(screen.getByTestId("square-7"));
+    userEvent.click(screen.getByTestId("square-2"));
+    expect(screen.getByText(/player 1 wins/i)).toBeInTheDocument();
+  });
+
+  test("Player 1 win vertically", () => {
+    render(
+      <TicTacToeProvider>
+        <App />
+      </TicTacToeProvider>
+    );
+    userEvent.click(screen.getByTestId("square-0"));
+    userEvent.click(screen.getByTestId("square-1"));
+    userEvent.click(screen.getByTestId("square-3"));
+    userEvent.click(screen.getByTestId("square-4"));
+    userEvent.click(screen.getByTestId("square-6"));
+    expect(screen.getByText(/player 1 wins/i)).toBeInTheDocument();
+  });
+
+  test("Player 1 win Diagonally", () => {
+    render(
+      <TicTacToeProvider>
+        <App />
+      </TicTacToeProvider>
+    );
+    userEvent.click(screen.getByTestId("square-0"));
+    userEvent.click(screen.getByTestId("square-1"));
+    userEvent.click(screen.getByTestId("square-4"));
+    userEvent.click(screen.getByTestId("square-2"));
+    userEvent.click(screen.getByTestId("square-8"));
+    expect(screen.getByText(/player 1 wins/i)).toBeInTheDocument();
+  });
 });
 
 describe("Check if there are 3 crosses aligned", () => {
