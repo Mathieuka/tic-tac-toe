@@ -1,11 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import {
-  horizontallyAligned,
-  diagonallyAligned,
-  verticallyAligned,
-} from "./utils";
+import { isAligned } from "./utils";
 import TicTacToeProvider from "./Provider/TictactoeProvider";
 import App from "./App";
 
@@ -51,52 +47,52 @@ describe("TicTacToe", () => {
     userEvent.click(screen.getByTestId("square-8"));
     expect(screen.getByText(/player 1 wins/i)).toBeInTheDocument();
   });
-});
 
-describe("Check if there are 3 crosses aligned", () => {
-  test("Not aligned horizontally", () => {
-    const squares1 = ["1", "2", "1", "", "", "", "", "", ""];
-    expect(horizontallyAligned(squares1)).toEqual(false);
+  describe("Check if there are 3 crosses aligned", () => {
+    test("Not aligned horizontally", () => {
+      const squares1 = ["1", "2", "1", "", "", "", "", "", ""];
+      expect(isAligned(squares1)).toEqual(false);
 
-    const squares2 = ["", "1", "1", "1", "", "", "", "", ""];
-    expect(horizontallyAligned(squares2)).toEqual(false);
-  });
+      const squares2 = ["", "1", "1", "1", "", "", "", "", ""];
+      expect(isAligned(squares2)).toEqual(false);
+    });
 
-  test("Aligned horizontally", () => {
-    const squares1 = ["1", "1", "1", "", "", "", "", "", ""];
-    expect(horizontallyAligned(squares1)).toEqual(true);
+    test("Aligned horizontally", () => {
+      const squares1 = ["1", "1", "1", "", "", "", "", "", ""];
+      expect(isAligned(squares1)).toEqual(true);
 
-    const squares2 = ["", "", "", "1", "1", "1", "", "", ""];
-    expect(horizontallyAligned(squares2)).toEqual(true);
+      const squares2 = ["", "", "", "1", "1", "1", "", "", ""];
+      expect(isAligned(squares2)).toEqual(true);
 
-    const squares3 = ["", "", "", "", "", "", "1", "1", "1"];
-    expect(horizontallyAligned(squares3)).toEqual(true);
-  });
+      const squares3 = ["", "", "", "", "", "", "1", "1", "1"];
+      expect(isAligned(squares3)).toEqual(true);
+    });
 
-  test("Not aligned diagonally", () => {
-    const squares1 = ["1", "", "", "", "1", "", "", "", "2"];
-    expect(diagonallyAligned(squares1)).toEqual(false);
-  });
+    test("Not aligned diagonally", () => {
+      const squares1 = ["1", "", "", "", "1", "", "", "", "2"];
+      expect(isAligned(squares1)).toEqual(false);
+    });
 
-  test("Aligned diagonally", () => {
-    const squares1 = ["1", "", "", "", "1", "", "", "", "1"];
-    expect(diagonallyAligned(squares1)).toEqual(true);
+    test("Aligned diagonally", () => {
+      const squares1 = ["1", "", "", "", "1", "", "", "", "1"];
+      expect(isAligned(squares1)).toEqual(true);
 
-    const squares2 = ["", "", "1", "", "1", "", "1", "", ""];
-    expect(diagonallyAligned(squares2)).toEqual(true);
-  });
+      const squares2 = ["", "", "1", "", "1", "", "1", "", ""];
+      expect(isAligned(squares2)).toEqual(true);
+    });
 
-  test("Not aligned vertically", () => {
-    const squares1 = ["1", "", "", "1", "", "", "2", "", ""];
-    expect(verticallyAligned(squares1)).toEqual(false);
-  });
+    test("Not aligned vertically", () => {
+      const squares1 = ["1", "", "", "1", "", "", "2", "", ""];
+      expect(isAligned(squares1)).toEqual(false);
+    });
 
-  test("Vertically Aligned", () => {
-    const squares1 = ["1", "", "", "1", "", "", "1", "", ""];
-    expect(verticallyAligned(squares1)).toEqual(true);
-    const squares2 = ["", "1", "", "", "1", "", "", "1", ""];
-    expect(verticallyAligned(squares2)).toEqual(true);
-    const squares3 = ["", "", "1", "", "", "1", "", "", "1"];
-    expect(verticallyAligned(squares3)).toEqual(true);
+    test("Vertically Aligned", () => {
+      const squares1 = ["1", "", "", "1", "", "", "1", "", ""];
+      expect(isAligned(squares1)).toEqual(true);
+      const squares2 = ["", "1", "", "", "1", "", "", "1", ""];
+      expect(isAligned(squares2)).toEqual(true);
+      const squares3 = ["", "", "1", "", "", "1", "", "", "1"];
+      expect(isAligned(squares3)).toEqual(true);
+    });
   });
 });

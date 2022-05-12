@@ -9,53 +9,65 @@ const allValueIsEqual = (arr: string[], values: string[]) => {
   return isEqual;
 };
 
-export const horizontallyAligned = (squares: string[]) => {
-  for (let i = 0; i < squares.length; i++) {
+export const getIsVerticallyAligned = (squares: string[]) => {
+  const [column1, column2, column3]: string[][] = [[], [], []];
+  return (i: number) => {
     if (i % 3 === 0) {
-      const row = [...squares].slice(i, i + 3);
-      if (allValueIsEqual(row, ["1", "2"])) {
-        return true;
-      }
+      column1.push(squares[i]);
+      column2.push(squares[i + 1]);
+      column3.push(squares[i + 2]);
     }
-  }
-  return false;
+    const column1IsAligned =
+      column1.length === 3 && allValueIsEqual(column1, ["1", "2"]);
+    const column2IsAligned =
+      column2.length === 3 && allValueIsEqual(column2, ["1", "2"]);
+    const column3IsAligned =
+      column3.length === 3 && allValueIsEqual(column3, ["1", "2"]);
+
+    return column1IsAligned || column2IsAligned || column3IsAligned;
+  };
 };
 
-export const diagonallyAligned = (squares: string[]) => {
+const getIsDiagonallyAligned = (squares: string[]) => {
   const diagonals: string[][] = [[], []];
-  for (let i = 0; i < squares.length; i++) {
+  return (i: number) => {
     if (i % 4 === 0) {
       diagonals[0].push(squares[i]);
     }
-
     if (i % 2 === 0 && i > 0 && i < 8) {
       diagonals[1].push(squares[i]);
     }
-  }
+    const diagonal1IsAligned =
+      diagonals[0].length === 3 && allValueIsEqual(diagonals[0], ["1", "2"]);
+    const diagonal2IsAligned =
+      diagonals[1].length === 3 && allValueIsEqual(diagonals[1], ["1", "2"]);
 
-  return (
-    allValueIsEqual(diagonals[0], ["1", "2"]) ||
-    allValueIsEqual(diagonals[1], ["1", "2"])
-  );
+    return diagonal1IsAligned || diagonal2IsAligned;
+  };
 };
 
-export const verticallyAligned = (squares: string[]) => {
-  const columns: string[][] = [[], [], []];
-  for (let i = 0; i < squares.length; i++) {
-    if (i % 3 === 0) {
-      columns[0].push(squares[i]);
-      columns[1].push(squares[i + 1]);
-      columns[2].push(squares[i + 2]);
+const isHorizontallyAligned = (squares: string[], i: number) => {
+  if (i % 3 === 0) {
+    const row = [...squares].slice(i, i + 3);
+    if (allValueIsEqual(row, ["1", "2"])) {
+      return true;
     }
   }
-  return (
-    allValueIsEqual(columns[0], ["1", "2"]) ||
-    allValueIsEqual(columns[1], ["1", "2"]) ||
-    allValueIsEqual(columns[2], ["1", "2"])
-  );
 };
 
-export const isAligned = (squares: string[]) =>
-  horizontallyAligned(squares) ||
-  diagonallyAligned(squares) ||
-  verticallyAligned(squares);
+export const isAligned = (squares: string[]) => {
+  const isDiagonallyAligned = getIsDiagonallyAligned(squares);
+  const isVerticallyAligned = getIsVerticallyAligned(squares);
+
+  for (let i = 0; i < squares.length; i++) {
+    if (
+      isHorizontallyAligned(squares, i) ||
+      isVerticallyAligned(i) ||
+      isDiagonallyAligned(i)
+    ) {
+      return true;
+    }
+  }
+
+  return false;
+};
