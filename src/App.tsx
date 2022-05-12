@@ -1,27 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styles from "./App.module.css";
-import { isAligned } from "./utils";
+import useTicTacToe from "./Provider/useTicTacToe";
 
 function App() {
-  const [player, setPlayer] = useState<null | string>(null);
-  const [squares, setSquares] = useState<string[]>(
-    Array.from({ length: 9 }, () => "")
-  );
-
-  useEffect(() => {
-    if (isAligned(squares)) {
-      alert(`Player's ${player} wins`);
-    }
-    setPlayer(() => (player === "1" ? "2" : "1"));
-  }, [squares]);
-
-  const onCheckSquare = (idx: number) => {
-    if (!squares[idx]) {
-      const newSquares = [...squares];
-      newSquares[idx] = player === "1" ? "1" : "2";
-      setSquares(newSquares);
-    }
-  };
+  const { squares, onCheckSquare, player } = useTicTacToe();
 
   return (
     <div>
