@@ -7,11 +7,15 @@ function App() {
     onCheckSquare,
     squares,
     player,
-    gameState: { winner, isDraw },
+    gameState: { hasWin, isDraw },
+    reset,
   } = useTicTacToe();
 
   return (
     <div>
+      <button onClick={reset} className={styles.reset}>
+        Reset
+      </button>
       <div className={styles.app}>
         <div className={styles.playerTurn}>Player's {player} turn to play</div>
         <div className={styles.container}>
@@ -28,7 +32,7 @@ function App() {
           ))}
         </div>
         <div className={styles.hasWin}>
-          {winner && `Player ${player} wins`}
+          {hasWin && `Player ${player} wins`}
           {isDraw && `Draw !`}
         </div>
       </div>

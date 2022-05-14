@@ -14,6 +14,10 @@
   justify-self: center;
 }
 
+.reset {
+  margin: 1rem;
+}
+
 .container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
