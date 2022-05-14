@@ -17,7 +17,8 @@ function App() {
               className={`${styles[`square-${index}`]} ${styles.square}`}
               onClick={() => onCheckSquare(index)}
             >
-              {player && "X"}
+              {player === "1" && "X"}
+              {player === "2" && "O"}
             </div>
           ))}
         </div>
