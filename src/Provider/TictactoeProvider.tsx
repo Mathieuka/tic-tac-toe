@@ -1,18 +1,24 @@
 import { createContext, useMemo, useState } from "react";
-import { isAligned } from "../utils";
+import { isAligned, isDraw } from "../utils";
 
 interface TictactoeCtx {
   squares: string[];
   onCheckSquare: (idx: number) => void;
   player: string;
-  winner: boolean;
+  gameState: {
+    winner: boolean;
+    isDraw: boolean;
+  };
 }
 
 export const TicTacToeContext = createContext<TictactoeCtx>({
   squares: [],
   onCheckSquare: (idx: number) => undefined,
   player: "",
-  winner: false,
+  gameState: {
+    winner: false,
+    isDraw: false,
+  },
 });
 
 const useTicTacToeContext = () => {
@@ -31,7 +37,15 @@ const useTicTacToeContext = () => {
   };
 
   const contextValue = useMemo(
-    () => ({ squares, onCheckSquare, player, winner: isAligned(squares) }),
+    () => ({
+      squares,
+      onCheckSquare,
+      player,
+      gameState: {
+        winner: isAligned(squares),
+        isDraw: isDraw(squares),
+      },
+    }),
     [squares]
   );
 

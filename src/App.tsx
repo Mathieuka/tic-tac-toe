@@ -3,7 +3,12 @@ import styles from "./App.module.css";
 import useTicTacToe from "./Provider/useTicTacToe";
 
 function App() {
-  const { onCheckSquare, squares, player, winner } = useTicTacToe();
+  const {
+    onCheckSquare,
+    squares,
+    player,
+    gameState: { winner, isDraw },
+  } = useTicTacToe();
 
   return (
     <div>
@@ -22,7 +27,10 @@ function App() {
             </div>
           ))}
         </div>
-        <div className={styles.hasWin}>{winner && `Player ${player} wins`}</div>
+        <div className={styles.hasWin}>
+          {winner && `Player ${player} wins`}
+          {isDraw && `Draw !`}
+        </div>
       </div>
     </div>
   );

@@ -9,7 +9,7 @@ const allValueIsEqual = (arr: string[], values: string[]) => {
   return isEqual;
 };
 
-export const getIsVerticallyAligned = (squares: string[]) => {
+const getIsVerticallyAligned = (squares: string[]) => {
   const [column1, column2, column3]: string[][] = [[], [], []];
   return (i: number) => {
     if (i % 3 === 0) {
@@ -71,3 +71,6 @@ export const isAligned = (squares: string[]) => {
 
   return false;
 };
+
+export const isDraw = (squares: string[]) =>
+  squares.filter((value) => value).length === 9 && !isAligned(squares);

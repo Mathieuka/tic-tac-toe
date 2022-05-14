@@ -48,6 +48,48 @@ describe("TicTacToe", () => {
     expect(screen.getByText(/player 1 wins/i)).toBeInTheDocument();
   });
 
+  describe("Check if is Draw", () => {
+    test("Is not draw", () => {
+      render(
+        <TicTacToeProvider>
+          <App />
+        </TicTacToeProvider>
+      );
+      userEvent.click(screen.getByTestId("square-0")); //x
+      userEvent.click(screen.getByTestId("square-1")); //o
+      userEvent.click(screen.getByTestId("square-2")); //x
+
+      userEvent.click(screen.getByTestId("square-5")); //o
+      userEvent.click(screen.getByTestId("square-4")); //x
+      userEvent.click(screen.getByTestId("square-6")); //o
+
+      userEvent.click(screen.getByTestId("square-3")); //x
+      userEvent.click(screen.getByTestId("square-7")); //x
+      userEvent.click(screen.getByTestId("square-8")); //o
+      expect(screen.queryByText(/Draw !/i)).not.toBeInTheDocument();
+    });
+
+    test("Is draw", () => {
+      render(
+        <TicTacToeProvider>
+          <App />
+        </TicTacToeProvider>
+      );
+      userEvent.click(screen.getByTestId("square-0")); //x
+      userEvent.click(screen.getByTestId("square-1")); //o
+      userEvent.click(screen.getByTestId("square-2")); //x
+
+      userEvent.click(screen.getByTestId("square-5")); //o
+      userEvent.click(screen.getByTestId("square-4")); //x
+      userEvent.click(screen.getByTestId("square-6")); //o
+
+      userEvent.click(screen.getByTestId("square-3")); //x
+      userEvent.click(screen.getByTestId("square-8")); //o
+      userEvent.click(screen.getByTestId("square-7")); //x
+      expect(screen.getByText(/Draw !/i)).toBeInTheDocument();
+    });
+  });
+
   describe("Check if there are 3 crosses aligned", () => {
     test("Not aligned horizontally", () => {
       const squares1 = ["1", "2", "1", "", "", "", "", "", ""];
