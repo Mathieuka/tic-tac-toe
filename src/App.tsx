@@ -7,21 +7,21 @@ function App() {
 
   return (
     <div>
-      <div>Player's {player} turn to play</div>
-      <div>{winner && `Player ${player} wins`}</div>
       <div className={styles.app}>
+        <div className={styles.playerTurn}>Player's {player} turn to play</div>
         <div className={styles.container}>
           {squares.map((player, index) => (
             <div
               data-testid={`square-${index}`}
               key={Math.random() * index}
-              className={styles.square}
+              className={`${styles[`square-${index}`]} ${styles.square}`}
               onClick={() => onCheckSquare(index)}
             >
-              {player && player}
+              {player && "X"}
             </div>
           ))}
         </div>
+        <div className={styles.hasWin}>{winner && `Player ${player} wins`}</div>
       </div>
     </div>
   );

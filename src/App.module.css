@@ -1,28 +1,70 @@
 .app {
-  display: flex;
+  display: grid;
+  grid-template-rows: 5rem 30rem 5rem;
   min-height: 100vh;
   justify-content: center;
   align-items: center;
+}
+
+.playerTurn {
+  justify-self: center;
+}
+
+.hasWin {
+  justify-self: center;
 }
 
 .container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
+  justify-self: center;
   width: 30.1rem;
   height: 30.1rem;
-  border-width: 1px;
-  border-style: solid;
 }
 
 .square {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 10rem;
   height: 10rem;
   border-width: 0.1px;
-  border-style: solid;
 }
 
+.square-1  {
+  border-right: solid;
+  border-left: solid;
+  border-bottom: solid;
+  margin-bottom: -2px;
+}
+
+.square-3 {
+  border-top: solid;
+  border-right: solid;
+  border-bottom: solid;
+  margin-right: -2px;
+}
+
+.square-5 {
+  border-top: solid;
+  border-left: solid;
+  border-bottom: solid;
+  margin-left: -1.5px;
+}
+
+.square-7 {
+  border-top: solid;
+  border-right: solid;
+  border-left: solid;
+  margin-top: -1.5px;
+}
+
+
 @media (max-width: 600px) {
+  .app {
+    grid-template-rows: 5rem 28rem 5rem;
+  }
   .container {
     width: 27.1rem;
     height: 27.1rem;
@@ -35,6 +77,10 @@
 }
 
 @media (max-width: 415px) {
+  .app {
+    grid-template-rows: 5rem 23rem 5rem;
+  }
+
   .container {
     width: 21.1rem;
     height: 21.1rem;
