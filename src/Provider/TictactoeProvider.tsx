@@ -29,18 +29,21 @@ const useTicTacToeContext = () => {
   const [player, setPlayer] = useState("1");
   const [squares, setSquares] = useState(blankSquares);
 
-  const onCheckSquare = (idx: number) => {
-    if (!isAligned(squares)) {
-      if (!squares[idx]) {
-        const newSquares = [...squares];
-        newSquares[idx] = player === "1" ? "1" : "2";
-        setSquares(newSquares);
-        if (!isAligned(newSquares)) {
-          setPlayer(() => (player === "1" ? "2" : "1"));
+  const onCheckSquare = useMemo(
+    () => (idx: number) => {
+      if (!isAligned(squares, player)) {
+        if (!squares[idx]) {
+          const newSquares = [...squares];
+          newSquares[idx] = player === "1" ? "1" : "2";
+          setSquares(newSquares);
+          if (!isAligned(newSquares, player)) {
+            setPlayer(() => (player === "1" ? "2" : "1"));
+          }
         }
       }
-    }
-  };
+    },
+    [player, squares]
+  );
 
   const contextValue = useMemo(
     () => ({
@@ -48,12 +51,12 @@ const useTicTacToeContext = () => {
       onCheckSquare,
       player,
       gameState: {
-        hasWin: isAligned(squares),
-        isDraw: isDraw(squares),
+        hasWin: isAligned(squares, player),
+        isDraw: isDraw(squares, player),
       },
       reset: () => setSquares(() => blankSquares),
     }),
-    [squares]
+    [squares, onCheckSquare, player]
   );
 
   return contextValue;

@@ -93,48 +93,48 @@ describe("TicTacToe", () => {
   describe("Check if there are 3 crosses aligned", () => {
     test("Not aligned horizontally", () => {
       const squares1 = ["1", "2", "1", "", "", "", "", "", ""];
-      expect(isAligned(squares1)).toEqual(false);
+      expect(isAligned(squares1, "1")).toEqual(false);
 
       const squares2 = ["", "1", "1", "1", "", "", "", "", ""];
-      expect(isAligned(squares2)).toEqual(false);
+      expect(isAligned(squares2, "1")).toEqual(false);
     });
 
     test("Aligned horizontally", () => {
       const squares1 = ["1", "1", "1", "", "", "", "", "", ""];
-      expect(isAligned(squares1)).toEqual(true);
+      expect(isAligned(squares1, "1")).toEqual(true);
 
       const squares2 = ["", "", "", "1", "1", "1", "", "", ""];
-      expect(isAligned(squares2)).toEqual(true);
+      expect(isAligned(squares2, "1")).toEqual(true);
 
       const squares3 = ["", "", "", "", "", "", "1", "1", "1"];
-      expect(isAligned(squares3)).toEqual(true);
+      expect(isAligned(squares3, "1")).toEqual(true);
     });
 
     test("Not aligned diagonally", () => {
       const squares1 = ["1", "", "", "", "1", "", "", "", "2"];
-      expect(isAligned(squares1)).toEqual(false);
+      expect(isAligned(squares1, "1")).toEqual(false);
     });
 
     test("Aligned diagonally", () => {
       const squares1 = ["1", "", "", "", "1", "", "", "", "1"];
-      expect(isAligned(squares1)).toEqual(true);
+      expect(isAligned(squares1, "1")).toEqual(true);
 
       const squares2 = ["", "", "1", "", "1", "", "1", "", ""];
-      expect(isAligned(squares2)).toEqual(true);
+      expect(isAligned(squares2, "1")).toEqual(true);
     });
 
     test("Not aligned vertically", () => {
       const squares1 = ["1", "", "", "1", "", "", "2", "", ""];
-      expect(isAligned(squares1)).toEqual(false);
+      expect(isAligned(squares1, "1")).toEqual(false);
     });
 
     test("Vertically Aligned", () => {
       const squares1 = ["1", "", "", "1", "", "", "1", "", ""];
-      expect(isAligned(squares1)).toEqual(true);
+      expect(isAligned(squares1, "1")).toEqual(true);
       const squares2 = ["", "1", "", "", "1", "", "", "1", ""];
-      expect(isAligned(squares2)).toEqual(true);
+      expect(isAligned(squares2, "1")).toEqual(true);
       const squares3 = ["", "", "1", "", "", "1", "", "", "1"];
-      expect(isAligned(squares3)).toEqual(true);
+      expect(isAligned(squares3, "1")).toEqual(true);
     });
   });
 });
